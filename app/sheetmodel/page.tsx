@@ -2,20 +2,21 @@
 import { FileAddOutlined } from '@ant-design/icons';
 import { Card, Spin } from 'antd';
 import { useEffect, useState } from 'react';
-import * as Sheet from "../../types/Sheet"
+import SheetModelEntry, * as Sheet from "../../types/Sheet"
 import axios from 'axios';
 
 export interface ISheetModelListProps {
 }
 
 export default function SheetModelList(props: ISheetModelListProps) {
-  const [list, setList] = useState<Sheet.SheetModelEntry[]>([]);
+  const [list, setList] = useState<SheetModelEntry[]>([]);
   const [isLoading, setLoading] = useState<boolean>(true);
   useEffect(() => { getContent(); }, []);
   const getContent = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('api/sheetmodeldata');
+      const response = await axios.get<SheetModelEntry[]>('/api/sheetmodeldata');
+      console.log(response);
       const data = response.data;
       console.log(data);
       setList(data);
@@ -34,11 +35,13 @@ export default function SheetModelList(props: ISheetModelListProps) {
         <Spin></Spin>}
       {!isLoading &&
         list.map(item => {
-          return <Card className="" title={item.title} key={item.title}>
-            <span>Créé le {item.date.toDateString()}</span>
-          </Card>;
-        })}
-
+          return (
+            <Card className="" title={item.title} key={item.title}>
+              {/* <span>Créé le {item.date.toDateString()}</span> */}
+            </Card>
+          );
+        })
+      }
     </div>
   );
 }

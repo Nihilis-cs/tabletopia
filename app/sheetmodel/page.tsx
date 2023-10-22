@@ -4,6 +4,7 @@ import { Card, Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import SheetModelEntry, * as Sheet from "../../types/Sheet"
 import axios from 'axios';
+import Link from 'next/link';
 
 export interface ISheetModelListProps {
 }
@@ -29,7 +30,7 @@ export default function SheetModelList(props: ISheetModelListProps) {
   return (
     <div className='grid grid-cols-3 gap-3  h-full'>
       <Card className="">
-        <FileAddOutlined size={32} />
+        <Link href='sheetmodel/create'><FileAddOutlined size={32} /></Link>
       </Card>
       {isLoading &&
         <Spin></Spin>}

@@ -1,0 +1,22 @@
+
+
+    Create
+const collection = database.collection('yourCollectionName'); // Replace with your collection name
+const documentToInsert = { key: 'value' };
+const result = await collection.insertOne(documentToInsert);
+
+    Read
+const collection = database.collection('yourCollectionName');
+const query = { key: 'value' };
+const documents = await collection.find(query).toArray();
+
+    Update
+const collection = database.collection('yourCollectionName');
+const query = { key: 'value' };
+const update = { $set: { newKey: 'updatedValue' } };
+const result = await collection.updateOne(query, update);
+
+    Delete
+const collection = database.collection('yourCollectionName');
+const query = { key: 'value' };
+const result = await collection.deleteOne(query);

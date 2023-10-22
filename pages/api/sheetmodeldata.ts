@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     // switch (requestMethod) {
     //     case 'GET':
     for (var i = 0; i < 20; i++) {
-        vRet.push({ title: "Modèle n° " + i, date: new Date("2023-09-27") })
+        vRet.push({ title: "Modèle n° " + i })
     }
     res.status(200).json(vRet);
     //return res;

@@ -38,7 +38,6 @@ export default function SheetModelList(props: ISheetModelListProps) {
         list.map(item => {
           return (
             <Card className="" title={item.title} key={item.title}>
-              {/* <span>Créé le {item.date.toDateString()}</span> */}
             </Card>
           );
         })

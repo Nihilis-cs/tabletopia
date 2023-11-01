@@ -1,19 +1,21 @@
-import { Card, Button, Select } from 'antd'
 import React from 'react'
+import { Card, CardHeader } from './ui/card'
 
 export default function Notes() {
   return (
     <>
-            <Card title={<span className="text-2xl">Notes</span>}
-                className="">
-                <form >
-                    <div className="grid grid-cols-2">
-                        
-                    </div>
-                </form>
-            </Card>
+      <Card >
+        <CardHeader>
+          <span className="text-2xl">Notes</span>
+        </CardHeader>
+        <form >
+          <div className="grid grid-cols-2">
 
-        </>
+          </div>
+        </form>
+      </Card>
+
+    </>
   )
 }
 

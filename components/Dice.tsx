@@ -1,7 +1,10 @@
 'use client'
-import { Button, Card, Select } from "antd";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
+import { Button } from "./ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Dices } from "lucide-react";
 
 export interface DiceToRoll {
     id: string;
@@ -17,7 +20,8 @@ interface IFormInput {
 
 function Dice() {
     const { control, handleSubmit, watch } = useForm<IFormInput>();
-    const [result, setResult] = useState<number| undefined>();
+    const [result, setResult] = useState<number | undefined>();
+    const [diceRolled, setDiceRolled] = useState<string>('');
     const diceList: DiceToRoll[] = [
         { id: "1", name: "D6", max: 6, min: 1 },
         { id: "2", name: "D8", max: 8, min: 1 },
@@ -27,9 +31,10 @@ function Dice() {
         { id: "6", name: "D100", max: 100, min: 1 },
         { id: "7", name: "D99/0 inclusive", max: 99, min: 0 },
     ];
-
+    const watchDice = watch("diceId");
     const rollDice = (dice: DiceToRoll): number => {
         var vRet = Math.floor(Math.random() * (dice.max - dice.min + 1) + dice.min);
+        setDiceRolled(dice.name);
         setResult(vRet);
         return vRet;
     }
@@ -40,33 +45,45 @@ function Dice() {
 
     return (
         <>
-            <Card title={<span className="text-2xl">Roll Dice</span>}
-                className="shadow"
-                actions={[
-                    <Button type="primary" onClick={handleSubmit(onSubmit)} >Throw</Button>
-                ]}>
+            <Card >
                 <form >
-                    <div className="grid grid-cols-2">
-                        <Controller
-                            name="diceId"
-                            control={control}
-                            defaultValue="1"
-                            render={({ field }) =>
-                                <Select
-                                    {...field}
-                                    options={
-                                        diceList.map((d) => { return { value: d.id, label: d.name } })
-                                    }
-                                />
-                            }
-                        />
-                        {result != undefined &&
-                            <div className="text-center">
-                                <span className="text-xl drop-shadow-md"> Result: {result} </span>
-                            </div>}
-                    </div>
+                    <CardHeader>
+                        <div className="flex gap-2">
+                            <Dices />
+                            <span className="text-2xl">
+                                Roll Dice
+                            </span>
+                        </div>
+
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid grid-cols-2">
+                            <Controller
+                                name="diceId"
+                                control={control}
+                                defaultValue="1"
+                                render={({ field }) =>
+                                    <Select onValueChange={field.onChange}>
+                                        <SelectTrigger >
+                                            <SelectValue placeholder="Choose a dice" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {diceList.map((d) => <SelectItem value={d.id}>{d.name}</SelectItem>)}
+                                        </SelectContent>
+                                    </Select>
+                                }
+                            />
+                            {result != undefined &&
+                                <div className="text-center">
+                                    <span className="text-xl drop-shadow-md">Result: {result} </span>
+                                </div>}
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <Button onClick={handleSubmit(onSubmit)} >Throw</Button>
+                    </CardFooter>
                 </form>
-            </Card>
+            </Card >
 
         </>
     )

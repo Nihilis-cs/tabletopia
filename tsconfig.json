@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.js", "app/_app.js", "app/_app.js", "pages/api/sheetmodeldata.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.js", "app/_app.js", "pages/api/sheetmodeldata.ts", "context/Context.js"],
   "exclude": ["node_modules"]
 }

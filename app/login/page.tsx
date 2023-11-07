@@ -1,62 +1,28 @@
-import Link from 'next/link'
-import { headers, cookies } from 'next/headers'
-import { createClient } from '@/utils/supabase/server'
-import { redirect } from 'next/navigation'
+'use server'
+import { Button } from '@/components/ui/button'
+import supabase from '@/lib/supabase';
 
-export default function Login({
+export default async function Login({
   searchParams,
 }: {
   searchParams: { message: string }
 }) {
-  const signIn = async (formData: FormData) => {
-    'use server'
 
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-
-    if (error) {
-      return redirect('/login?message=Could not authenticate user')
-    }
-
-    return redirect('/')
+  if (user)
+  {
+    return <span>Already loggedIn as {user?.email} </span>
   }
 
-  const signUp = async (formData: FormData) => {
-    'use server'
-
-    const origin = headers().get('origin')
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-      },
-    })
-
-    if (error) {
-      return redirect('/login?message=Could not authenticate user')
-    }
-
-    return redirect('/login?message=Check email to continue sign in process')
-  }
 
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
       <form
+        action="/auth/login" method="post"
         className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
-        action={signIn}
       >
         <label className="text-md" htmlFor="email">
           Email
@@ -77,15 +43,19 @@ export default function Login({
           placeholder="••••••••"
           required
         />
-        <button className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2">
-          Sign In
-        </button>
-        <button
-          formAction={signUp}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
+        {/* <div className='grid grid-cols-2 gap-4'> */}
+          <Button className="px-4 py-2 text-foreground mb-2">
+            Login
+          </Button>
+        {/* </div> */}
+
+        <Button
+          variant={"outline"}
+          formAction={"/auth/sign-up"}
+          className="px-4 py-2 text-foreground mb-2"
         >
           Sign Up
-        </button>
+        </Button>
         {searchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
             {searchParams.message}

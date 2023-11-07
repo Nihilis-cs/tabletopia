@@ -68,7 +68,7 @@ function Dice() {
                                             <SelectValue placeholder="Choose a dice" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {diceList.map((d) => <SelectItem value={d.id}>{d.name}</SelectItem>)}
+                                            {diceList.map((d) => <SelectItem value={d.id} key={"dice"+d.id}>{d.name}</SelectItem>)}
                                         </SelectContent>
                                     </Select>
                                 }

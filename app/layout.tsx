@@ -1,14 +1,13 @@
-'use client'
 import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider';
 import SideBar from '@/components/SideBar';
-import { AuthProvider } from './Auth';
+// import { AuthProvider } from './Auth';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html>
             <body>
-            <AuthProvider >
+            {/* <AuthProvider > */}
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
@@ -21,7 +20,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                         </div>
                     </SideBar>
                 </ThemeProvider>
-            </AuthProvider>
+            {/* </AuthProvider> */}
             </body>
         </html>
     );

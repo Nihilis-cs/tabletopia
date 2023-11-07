@@ -1,19 +1,28 @@
 'use client'
 import { MenuEntry } from '@/types/Menu';
 import { ChevronLeft, ChevronRight, FileSpreadsheet, Home } from 'lucide-react';
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { Button } from './ui/button';
 import MenuItem from './MenuItem';
 import UserAvatar from './UserAvatar';
-import { useAuth } from '@/app/Auth';
+import { User, createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/lib/supabase';
 
 interface SideBarProps {
     children : ReactNode;
     actions? : ReactNode;
 }
 export default function SideBar({ children, actions }: SideBarProps) {
-    const {user, signOut} = useAuth();
+    const supabase = createClientComponentClient<Database>()
+    const [user, setUser] = useState<User|null|undefined>()
+    useEffect(() => {
+        const getData = async () => {
+          const { data } = await supabase.auth.getSession();
+          setUser(data.session?.user);
+        }
     
+        getData()
+      }, [])
     const [open, setOpen] = useState<boolean>(true);
     const menuItems: MenuEntry[] = [
         { key: 0, label: 'Home', icon: <Home />, href: "/" },
@@ -50,7 +59,7 @@ export default function SideBar({ children, actions }: SideBarProps) {
                 {/*User Infos*/}
                 <div className='mx-auto'>
                     {/* {actions} */}
-                    <UserAvatar user={user}/>
+                    {user && <UserAvatar user={user}/>}
                 </div>
             </div>
             {/*Content*/}

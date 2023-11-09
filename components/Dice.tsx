@@ -21,7 +21,6 @@ interface IFormInput {
 function Dice() {
     const { control, handleSubmit, watch } = useForm<IFormInput>();
     const [result, setResult] = useState<number | undefined>();
-    const [diceRolled, setDiceRolled] = useState<string>('');
     const diceList: DiceToRoll[] = [
         { id: "1", name: "D6", max: 6, min: 1 },
         { id: "2", name: "D8", max: 8, min: 1 },
@@ -31,10 +30,8 @@ function Dice() {
         { id: "6", name: "D100", max: 100, min: 1 },
         { id: "7", name: "D99/0 inclusive", max: 99, min: 0 },
     ];
-    const watchDice = watch("diceId");
     const rollDice = (dice: DiceToRoll): number => {
         var vRet = Math.floor(Math.random() * (dice.max - dice.min + 1) + dice.min);
-        setDiceRolled(dice.name);
         setResult(vRet);
         return vRet;
     }
@@ -80,7 +77,7 @@ function Dice() {
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <Button onClick={handleSubmit(onSubmit)} >Throw</Button>
+                        <Button onClick={handleSubmit(onSubmit)} className='text-foreground' >Throw</Button>
                     </CardFooter>
                 </form>
             </Card >

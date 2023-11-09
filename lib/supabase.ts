@@ -9,60 +9,162 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      SheetModels: {
+      Profiles: {
         Row: {
-          created_at: string
           id: string
-          name: string
-          user_id: string | null
+          username: string | null
         }
         Insert: {
-          created_at?: string
-          id?: string
-          name: string
-          user_id?: string | null
+          id: string
+          username?: string | null
         }
         Update: {
-          created_at?: string
           id?: string
-          name?: string
-          user_id?: string | null
+          username?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "SheetModels_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: "Profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      SheetModels: {
+        Row: {
+          created_at: string
+          creator_id: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          creator_id?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          creator_id?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "SheetModels_creator_id_fkey"
+            columns: ["creator_id"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]
       }
-      SheetModeModules: {
+      SheetModuleModels: {
+        Row: {
+          created_at: string
+          fields_count: number | null
+          id: string
+          sheet_model_id: string
+          title: string | null
+          type: number | null
+        }
+        Insert: {
+          created_at?: string
+          fields_count?: number | null
+          id?: string
+          sheet_model_id: string
+          title?: string | null
+          type?: number | null
+        }
+        Update: {
+          created_at?: string
+          fields_count?: number | null
+          id?: string
+          sheet_model_id?: string
+          title?: string | null
+          type?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "SheetModuleModels_sheet_model_id_fkey"
+            columns: ["sheet_model_id"]
+            isOneToOne: false
+            referencedRelation: "SheetModels"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      StatFieldModels: {
         Row: {
           created_at: string
           id: string
-          sheet_model: string
-          title: string | null
+          max_value: number | null
+          min_value: number | null
+          name: string
+          sheet_module_model_id: string
+          value: number
         }
         Insert: {
           created_at?: string
           id?: string
-          sheet_model: string
-          title?: string | null
+          max_value?: number | null
+          min_value?: number | null
+          name?: string
+          sheet_module_model_id: string
+          value?: number
         }
         Update: {
           created_at?: string
           id?: string
-          sheet_model?: string
-          title?: string | null
+          max_value?: number | null
+          min_value?: number | null
+          name?: string
+          sheet_module_model_id?: string
+          value?: number
         }
         Relationships: [
           {
-            foreignKeyName: "SheetModeModules_sheet_model_fkey"
-            columns: ["sheet_model"]
+            foreignKeyName: "StatFieldModels_sheet_module_model_id_fkey"
+            columns: ["sheet_module_model_id"]
             isOneToOne: false
-            referencedRelation: "SheetModels"
+            referencedRelation: "SheetModuleModels"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      StringFieldModels: {
+        Row: {
+          created_at: string
+          editable: boolean
+          id: string
+          name: string
+          sheet_module_model_id: string
+          value: string | null
+        }
+        Insert: {
+          created_at?: string
+          editable?: boolean
+          id?: string
+          name?: string
+          sheet_module_model_id: string
+          value?: string | null
+        }
+        Update: {
+          created_at?: string
+          editable?: boolean
+          id?: string
+          name?: string
+          sheet_module_model_id?: string
+          value?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "StringFieldModels_sheet_module_model_id_fkey"
+            columns: ["sheet_module_model_id"]
+            isOneToOne: false
+            referencedRelation: "SheetModuleModels"
             referencedColumns: ["id"]
           }
         ]

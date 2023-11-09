@@ -22,9 +22,9 @@ export default async function Home() {
 
     return (
         <div className='flex-grow h-full'>
-            <div className='w-full h-full overflow-auto dark:text-slate-200'>
+            <div className='w-full h-full overflow-auto'>
                 <div className="grid gap-3 h-max">
-                    <div className="grid grid-cols-2 gap-3 text-white">
+                    <div className="grid grid-cols-2 gap-3">
                         <Dice />
                         <Notes />
                     </div>

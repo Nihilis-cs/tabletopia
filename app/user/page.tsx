@@ -25,16 +25,16 @@ export default async function UserProfilePage() {
       <div className='w-full h-full overflow-auto dark:text-slate-200'>
         <div className='grid grid-cols-2 gap-3'>
           <UserForm session={session} />
-
+          <form action="/auth/logout" method="post">
+            <Button className="px-4 py-2 text-foreground mb-2" >
+              <div className='pr-2'>
+                <LogOut />
+              </div>
+              Sign out
+            </Button>
+          </form>
         </div>
-        <form action="/auth/logout" method="post">
-          <Button className="px-4 py-2 text-foreground mb-2" >
-            <div className='pr-2'>
-              <LogOut />
-            </div>
-            Sign out
-          </Button>
-        </form>
+
       </div>
     </div>
   )

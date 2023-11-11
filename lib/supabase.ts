@@ -64,27 +64,30 @@ export interface Database {
       SheetModuleModels: {
         Row: {
           created_at: string
+          fields: Json[] | null
           fields_count: number | null
           id: string
           sheet_model_id: string
           title: string | null
-          type: number | null
+          type: Database["public"]["Enums"]["EFieldType"]
         }
         Insert: {
           created_at?: string
+          fields?: Json[] | null
           fields_count?: number | null
           id?: string
           sheet_model_id: string
           title?: string | null
-          type?: number | null
+          type?: Database["public"]["Enums"]["EFieldType"]
         }
         Update: {
           created_at?: string
+          fields?: Json[] | null
           fields_count?: number | null
           id?: string
           sheet_model_id?: string
           title?: string | null
-          type?: number | null
+          type?: Database["public"]["Enums"]["EFieldType"]
         }
         Relationships: [
           {
@@ -141,7 +144,6 @@ export interface Database {
           id: string
           name: string
           sheet_module_model_id: string
-          value: string | null
         }
         Insert: {
           created_at?: string
@@ -149,7 +151,6 @@ export interface Database {
           id?: string
           name?: string
           sheet_module_model_id: string
-          value?: string | null
         }
         Update: {
           created_at?: string
@@ -157,7 +158,6 @@ export interface Database {
           id?: string
           name?: string
           sheet_module_model_id?: string
-          value?: string | null
         }
         Relationships: [
           {
@@ -177,7 +177,7 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      EFieldType: "String" | "Stats" | "Inventory"
     }
     CompositeTypes: {
       [_ in never]: never

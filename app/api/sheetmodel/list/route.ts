@@ -11,18 +11,17 @@ export async function GET() {
     if (user) {
         const { data } = await supabase
             .from('SheetModels')
-            .select('id, name, created_at', )
+            .select('id, name, created_at',)
             .eq('creator_id', user!.id);
-        
+
         var vRet: SheetModelEntry[] = [];
-        data?.forEach((sheet) => { 
+        data?.forEach((sheet) => {
             vRet.push({
-                id: sheet.id, 
-                name: sheet.name, 
+                id: sheet.id,
+                name: sheet.name,
                 created_at: sheet.created_at,
             })
         })
-        console.log(vRet);
         return Response.json(vRet);
     }
 

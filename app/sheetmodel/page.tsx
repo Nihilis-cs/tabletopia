@@ -1,15 +1,10 @@
 'use client'
-import {
-  useQuery,
-
-} from '@tanstack/react-query'
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { SheetModelEntry } from "../../types/Sheet";
 import { Skeleton } from "@/components/ui/skeleton"
-import axios from 'axios';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from '@/components/ui/card';
 import CreateSheetModelModal from '@/components/sheetmodels/CreateSheetModelModal';
-import { PenSquare, Settings, Trash2 } from 'lucide-react';
+import { PenSquare, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { sheetmodelkeys, sheetmodelqueries } from '@/services/sheetmodelqueries';
@@ -18,10 +13,6 @@ export interface ISheetModelListProps {
 }
 
 export default function SheetModelList(props: ISheetModelListProps) {
-  //const [list, setList] = useState<SheetModelEntry[]>([]);
-  //const [isLoading, setLoading] = useState<boolean>(true);
-
-  //useEffect(() => { getContent(); }, []);
 
   const useSheetModel = () => {
     return useQuery<SheetModelEntry[]>({
@@ -33,15 +24,6 @@ export default function SheetModelList(props: ISheetModelListProps) {
     });
   };
   const { isLoading, data: list, refetch } = useSheetModel();
-
-  // const getContent = async () => {
-  //   setLoading(true);
-  //   var vRes = await axios.get<SheetModelEntry[]>('/api/sheetmodel/list');
-  //   const data = vRes.data;
-  //   console.log(data);
-  //   setList(data);
-  //   setLoading(false);
-  // }
 
   const getPathName = (id: string) => {
     return "sheetmodel/" + id;

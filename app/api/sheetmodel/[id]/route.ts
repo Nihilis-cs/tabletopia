@@ -1,5 +1,6 @@
 import { Database } from "@/lib/supabase";
-import { FieldModel, SheetModelDetails, SheetModelEntry, SheetModuleModel } from "@/types/Sheet";
+import { z } from "zod";
+import { FieldModel, FieldModelSchema, FieldsModelSchema, SheetModelDetails, SheetModuleModel } from "@/types/Sheet";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { serialize } from "v8";
@@ -73,7 +74,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
                     sheet_model_id,
                     fields`)
                 .eq('sheet_model_id', params.id);
-            console.log(error);
+            console.log(modules);
             if (modules != undefined) {
                 modules.forEach(async (mod, index) => {
                     var vModule: SheetModuleModel = {
@@ -82,12 +83,9 @@ export async function GET(request: Request, { params }: { params: { id: string }
                         type: mod.type,
                         fields: [],
                     };
-                    mod.fields?.forEach((field) => {
-                        var vField: FieldModel = { name: 'Field' };
-                        // vField.name = field?.valueOf() as string;
-                        vModule.fields.push(vField)
+                    const vFields = FieldsModelSchema.parse(mod.fields);
+                    vModule.fields = vFields;
 
-                    }) 
                     vRet.modules.push(vModule);
                 })
                 return Response.json(vRet);

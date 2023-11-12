@@ -64,8 +64,7 @@ export interface Database {
       SheetModuleModels: {
         Row: {
           created_at: string
-          fields: Json[] | null
-          fields_count: number | null
+          fields: Json | null
           id: string
           sheet_model_id: string
           title: string | null
@@ -73,8 +72,7 @@ export interface Database {
         }
         Insert: {
           created_at?: string
-          fields?: Json[] | null
-          fields_count?: number | null
+          fields?: Json | null
           id?: string
           sheet_model_id: string
           title?: string | null
@@ -82,8 +80,7 @@ export interface Database {
         }
         Update: {
           created_at?: string
-          fields?: Json[] | null
-          fields_count?: number | null
+          fields?: Json | null
           id?: string
           sheet_model_id?: string
           title?: string | null

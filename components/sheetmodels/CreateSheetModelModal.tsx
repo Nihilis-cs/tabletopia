@@ -71,53 +71,5 @@ export default function CreateSheetModelModal() {
                 </form>
             </AlertDialogContent>
         </AlertDialog>
-        // <Dialog open={open} >
-        //     <DialogTrigger asChild>
-        //         <Button variant={"outline"} onClick={() => setOpen(!open)} ><Plus /></Button>
-        //     </DialogTrigger>
-        //     <DialogContent className="sm:max-w-[425px]">
-        //         <form onSubmit={handleSubmit(onSubmit)}>
-        //             <DialogHeader className="pb-4">
-        //                 <DialogTitle className="pb-2">Create new sheet model</DialogTitle>
-        //                 <DialogDescription className="pb-2">
-        //                     Create a new sheet model here. You'll then be able to add content by selecting it in the list.
-        //                 </DialogDescription>
-        //                 <Separator />
-        //             </DialogHeader>
-        //             <div className="grid gap-4 py-4">
-        //                 <div className="grid grid-cols-4 items-center gap-4">
-        //                     <Controller
-        //                         control={control}
-        //                         name="title"
-        //                         rules={{ required: true }}
-        //                         render={({ field, fieldState }) => {
-        //                             return (
-        //                                 <>
-        //                                     <Label className="text-right col-span-1 w-full">
-        //                                         Name
-        //                                     </Label>
-        //                                     <Input {...field} className="col-span-2 w-full"/>
-        //                                     {fieldState.error && <div>{fieldState.error.message}</div>}
-        //                                 </>
-        //                             )
-        //                         }}
-        //                     />
-        //                 </div>
-        //                 <div className="grid grid-cols-4 items-center gap-4">
-        //                 </div>
-        //             </div>
-        //             <DialogFooter>
-        //                 <DialogClose asChild>
-        //                     <Button type="button" variant="secondary" onClick={() => setOpen(false)}>
-        //                         Cancel
-        //                     </Button>
-        //                 </DialogClose>
-        //                 <Button className="px-4 py-2 text-foreground mb-2" type="submit" >
-        //                     Create
-        //                 </Button>
-        //             </DialogFooter>
-        //         </form>
-        //     </DialogContent>
-        // </Dialog>
     )
 }

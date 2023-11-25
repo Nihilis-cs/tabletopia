@@ -1,4 +1,4 @@
-import { CreateSheetModel, SheetModelDetails, SheetModelEntry } from "@/types/Sheet";
+import { CreateSheetModel, CreateSheetModuleModel, SheetModelDetails, SheetModelEntry, SheetModuleModelForm } from "@/types/Sheet";
 import axios from "axios";
 
 
@@ -6,6 +6,7 @@ export const sheetmodelqueries = {
     listAll,
     byId,
     createModel,
+    addModule,
 };
 export const sheetmodelkeys = {
     all : ['sheetmodel'] as const,
@@ -25,5 +26,10 @@ async function byId(id: string) {
 
 async function createModel(data: CreateSheetModel) {
     var vRet = await axios.post<CreateSheetModel>('/api/sheetmodel/create', data);
+    return vRet;
+}
+async function addModule(data: CreateSheetModuleModel)
+{
+    var vRet = await axios.post<CreateSheetModuleModel>('/api/sheetmodel/module', data);
     return vRet;
 }

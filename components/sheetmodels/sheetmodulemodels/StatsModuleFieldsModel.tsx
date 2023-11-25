@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table';
 import { FieldModel, SheetModuleModel } from '@/types/Sheet';
 import { Separator } from '@radix-ui/react-separator';
-import React from 'react'
+import React, { useState } from 'react'
 
 interface StatsModelDetailProps {
     module: SheetModuleModel;
@@ -13,7 +13,7 @@ interface FieldModelProps {
 }
 
 export default function StatsModuleFieldsModel({ module }: StatsModelDetailProps) {
-
+    const [isUpdating, setUpdating] = useState<boolean>(false);
     const StatField = ({ field }: FieldModelProps) => {
         return (
             <Card className='hover:bg-primary-foreground'>
@@ -30,9 +30,9 @@ export default function StatsModuleFieldsModel({ module }: StatsModelDetailProps
 
     return (
         <div className='grid grid-cols-6 gap-2 '>
-            {module.fields?.map((field) => {
+            {module.fields?.map((field, index) => {
                 return (
-                    <StatField field={field} />);
+                    <StatField field={field} key={'field'+index}/>);
             })}
             
         </div>

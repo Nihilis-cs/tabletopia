@@ -31,6 +31,19 @@ export interface SheetModuleModel{
     fields?: FieldModel[] | null;
     order?: number;
 }
+export interface SheetModuleModelForm{
+    title: string;
+    type: string;
+    fields?: FieldModel[];
+    order?: number;
+}
+export interface CreateSheetModuleModel{
+    sheetId: string;
+    title: string;
+    type: string;
+    fields?: FieldModel[];
+    order?: number;
+}
 
 export const FieldModelSchema = z.object({
     name: z.string(),

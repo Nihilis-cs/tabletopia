@@ -36,7 +36,6 @@ export async function GET(request: Request, { params }: { params: { id: string }
                     sheet_model_id,
                     fields`)
                 .eq('sheet_model_id', params.id);
-            console.log(modules);
             if (modules != undefined) {
                 modules.forEach(async (mod, index) => {
                     var vModule: SheetModuleModel = {

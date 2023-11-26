@@ -33,17 +33,23 @@ export interface SheetModuleModel{
 }
 export interface SheetModuleModelForm{
     title: string;
-    type: string;
+    type: EFieldType;
     fields?: FieldModel[];
     order?: number;
 }
 export interface CreateSheetModuleModel{
     sheetId: string;
     title: string;
-    type: string;
+    type: EFieldType;//"String" | "Stats" | "Inventory";
     fields?: FieldModel[];
     order?: number;
 }
+
+export enum EFieldType {
+    STRING = 'String',
+    STATS = 'Stats',
+    INVENTORY = 'Inventory'
+ }
 
 export const FieldModelSchema = z.object({
     name: z.string(),

@@ -30,13 +30,11 @@ export default function DetailSheetModel({ id }: DetailSheetModelProps) {
     };
     const { isLoading, data: sheet, refetch } = useSheetModelDetails();
 
-    const addModule = () => { }
-
     return (
         <Card>
             <CardHeader className='flex flex-row gap-4 justify-between'>
-                <CardTitle>
-                    <div className='flex flex-row justify-between' >
+                <CardTitle className='flex flex-row justify-around gap-2' >
+                    <div className='flex flex-row justify-between gap-2' >
                         <div className='flex flex-row gap-4' >
                             <div className="text-3xl text-primary align-bottom">{sheet?.name}</div>
                             <Button variant={"outline"} onClick={() => setUpdating(true)}>
@@ -44,7 +42,9 @@ export default function DetailSheetModel({ id }: DetailSheetModelProps) {
                             </Button>
                         </div>
                         <div>
-                            <AddModuleModal sheetId={sheet ? sheet.id : ''}></AddModuleModal>
+                            {isUpdating &&
+                                <AddModuleModal sheetId={sheet ? sheet.id : ''}></AddModuleModal>
+                            }
                         </div>
                     </div>
                 </CardTitle>
@@ -54,7 +54,7 @@ export default function DetailSheetModel({ id }: DetailSheetModelProps) {
                     {sheet?.modules &&
                         sheet.modules.map((mod, index) => {
                             return (
-                                <DetailSheetModuleModel module={mod} isUpdating={isUpdating} key={"module"+index}/>
+                                <DetailSheetModuleModel module={mod} isUpdating={isUpdating} key={"module" + index} />
                             );
                         })
                     }

@@ -4,7 +4,7 @@ import { Label } from '@/components/ui/label';
 import { Plus } from 'lucide-react';
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form';
-import { CreateSheetModuleModel, SheetModuleModelForm } from '@/types/Sheet';
+import { CreateSheetModuleModel, EFieldType, SheetModuleModelForm } from '@/types/Sheet';
 import { useQueryClient } from '@tanstack/react-query';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -17,11 +17,12 @@ export default function AddModuleModal({ sheetId }: AddModuleModalProps) {
     const { control, handleSubmit, formState } = useForm<SheetModuleModelForm>();
     const [open, setOpen] = useState<boolean>(false);
     const queryClient = useQueryClient();
-    const selectItems = [
+    const selectItems = [ //EFieldType iterer sur l'enum?
         { key: 1, value: "String", label: "String" },
         { key: 2, value: "Stats", label: "Stats" },
-        //{key: 3, value: "Inventory", label: "Inventory" },
+        { key: 3, value: "Inventory", label: "Inventory" },
     ]
+
     const onSubmit = async (data: SheetModuleModelForm) => {
         console.log(data);
         var vData: CreateSheetModuleModel = {
@@ -51,7 +52,7 @@ export default function AddModuleModal({ sheetId }: AddModuleModalProps) {
                             <Controller
                                 control={control}
                                 name="title"
-                                rules={{ required: true, minLength: 1 }}
+                                rules={{ required: true }}
                                 render={({ field, fieldState }) => {
                                     return (
                                         <>
@@ -77,7 +78,7 @@ export default function AddModuleModal({ sheetId }: AddModuleModalProps) {
                                                 Type
                                             </Label>
                                             <div className="col-span-2 w-full">
-                                                <Select {...field}>
+                                                <Select onValueChange={field.onChange}>
                                                     <SelectTrigger>
                                                         <SelectValue placeholder="Select a type" />
                                                     </SelectTrigger>
@@ -103,7 +104,7 @@ export default function AddModuleModal({ sheetId }: AddModuleModalProps) {
                         <Button type="button" variant="secondary" onClick={() => setOpen(false)}>
                             Cancel
                         </Button>
-                        <Button className="px-4 py-2 text-foreground mb-2" type='submit' disabled={formState.isValid} >
+                        <Button className="px-4 py-2 text-foreground mb-2" type='submit' disabled={!formState.isValid} >
                             Create
                         </Button>
                     </DialogFooter>

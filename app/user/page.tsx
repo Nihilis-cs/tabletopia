@@ -6,8 +6,10 @@ import { LogOut } from 'lucide-react'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import React from 'react'
+// import { useTranslation } from 'react-i18next';
 
 export default async function UserProfilePage() {
+  // const { t } = useTranslation();
   const supabase = createServerComponentClient<Database>({
     cookies,
   })
@@ -30,7 +32,7 @@ export default async function UserProfilePage() {
               <div className='pr-2'>
                 <LogOut />
               </div>
-              Sign out
+              {/* {t('common:buttons.user.signOut')} */}
             </Button>
           </form>
         </div>

@@ -1,6 +1,7 @@
 import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider';
 import SideBar from '@/components/SideBar';
+// import './i18n';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 

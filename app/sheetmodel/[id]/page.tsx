@@ -5,7 +5,7 @@ export default function ModelDetails({ params }: { params: { id: string } }) {
 
 
   return (
-    <DetailSheetModel id={params.id}/>
+        <DetailSheetModel id={params.id} />
   )
 
 }

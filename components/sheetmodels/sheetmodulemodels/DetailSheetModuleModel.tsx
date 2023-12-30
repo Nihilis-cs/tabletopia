@@ -10,12 +10,13 @@ import { Plus } from 'lucide-react';
 interface ModuleModelDetailProps {
     module: SheetModuleModel;
     isUpdating: boolean;
+    moduleIndex: number;
 }
-export default function DetailSheetModuleModel({ module, isUpdating }: ModuleModelDetailProps) {
+export default function DetailSheetModuleModel({ module, isUpdating, moduleIndex }: ModuleModelDetailProps) {
 
     const Module = () => {
-        if (module.type == "Stats") return <StatsModuleFieldsModel module={module} />
-        if (module.type == "String") return <StringModuleFieldsModel module={module} />
+        if (module.type == "Stats") return <StatsModuleFieldsModel module={module} moduleIndex={moduleIndex} isUpdating={isUpdating}/>
+        if (module.type == "String") return <StringModuleFieldsModel module={module} moduleIndex={moduleIndex} isUpdating={isUpdating} />
     }
     return (
         <Card>

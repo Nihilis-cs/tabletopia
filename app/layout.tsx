@@ -15,8 +15,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                     disableTransitionOnChange
                 >
                     <SideBar>
-                        <div className="container mx-auto mt-8">
-                            <main>{children}</main>
+                        <div className="container mx-auto my-4">
+                            <div className='relative'>
+                                <div className='absolute inset-0'>
+                                    <main>{children}</main>
+                                </div>
+                            </div>
                         </div>
                     </SideBar>
                 </ThemeProvider>

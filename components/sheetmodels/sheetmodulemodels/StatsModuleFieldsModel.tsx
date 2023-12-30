@@ -1,27 +1,78 @@
 'use client'
 import { Card } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table';
-import { FieldModel, SheetModuleModel } from '@/types/Sheet';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { FieldModel, SheetModelDetails, SheetModuleModel } from '@/types/Sheet';
 import { Separator } from '@radix-ui/react-separator';
 import React, { useState } from 'react'
+import { Controller, useFormContext } from 'react-hook-form';
 
 interface StatsModelDetailProps {
     module: SheetModuleModel;
+    isUpdating: boolean;
+    moduleIndex: number;
 }
 interface FieldModelProps {
     field: FieldModel;
+    index: number;
 }
 
-export default function StatsModuleFieldsModel({ module }: StatsModelDetailProps) {
-    const [isUpdating, setUpdating] = useState<boolean>(false);
-    const StatField = ({ field }: FieldModelProps) => {
+export default function StatsModuleFieldsModel({ module, moduleIndex, isUpdating }: StatsModelDetailProps) {
+    const { control } = useFormContext<SheetModelDetails>();
+    const StatField = ({ field, index }: FieldModelProps) => {
         return (
             <Card className='hover:bg-primary-foreground'>
                 <div className='flex flex-col items-center'>
-                    <div className='text-lg text-primary'>{field?.name}</div>
-                    <Separator />
-                    <div className='text-sm'>Min: {field?.min_value}</div>
-                    <div className='text-sm'>Max: {field?.max_value}</div>
+                    {isUpdating &&
+                        <>
+                            <Controller
+                                control={control}
+                                name={`modules.${moduleIndex}.fields.${index}.name`}
+                                render={({ field }) => {
+                                    return (
+                                        <>
+                                            <Label className="text-right col-span-1 w-full">
+                                                Name
+                                            </Label>
+                                            <Input {...field} className="col-span-2 w-full" />
+                                        </>);
+                                }}
+                            />
+                            <Controller
+                                control={control}
+                                name={`modules.${moduleIndex}.fields.${index}.min_value`}
+                                render={({ field }) => {
+                                    return (
+                                        <>
+                                            <Label className="text-right col-span-1 w-full">
+                                                Min
+                                            </Label>
+                                            <Input type="number" {...field} className="col-span-2 w-full" />
+                                        </>);
+                                }}
+                            />
+                            <Controller
+                                control={control}
+                                name={`modules.${moduleIndex}.fields.${index}.max_value`}
+                                render={({ field }) => {
+                                    return (
+                                        <>
+                                            <Label className="text-right col-span-1 w-full">
+                                                Max
+                                            </Label>
+                                            <Input type="number" {...field} className="col-span-2 w-full" />
+                                        </>);
+                                }}
+                            />
+                        </>
+                    }
+                    {!isUpdating &&
+                        <>
+                            <div className='text-lg text-primary'>{field?.name}</div>
+                            <div className='text-sm'>Min: {field?.min_value}</div>
+                            <div className='text-sm'>Max: {field?.max_value}</div>
+                        </>
+                    }
                 </div>
             </Card>
         )
@@ -32,9 +83,9 @@ export default function StatsModuleFieldsModel({ module }: StatsModelDetailProps
         <div className='grid grid-cols-6 gap-2 '>
             {module.fields?.map((field, index) => {
                 return (
-                    <StatField field={field} key={'field'+index}/>);
+                    <StatField field={field} key={'field' + index} index={index} />);
             })}
-            
+
         </div>
     )
 }

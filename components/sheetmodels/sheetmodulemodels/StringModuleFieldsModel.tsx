@@ -5,9 +5,11 @@ import React from 'react'
 
 interface StringModelDetailProps {
     module: SheetModuleModel;
+    moduleIndex: number;
+    isUpdating: boolean;
 }
 
-export default function SringModuleFieldsModel({ module }: StringModelDetailProps) {
+export default function SringModuleFieldsModel({ module, moduleIndex, isUpdating }: StringModelDetailProps) {
     return (
         <div className='grid grid-cols-2'>
         <Table>

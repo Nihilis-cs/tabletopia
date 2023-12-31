@@ -1,11 +1,12 @@
 'use client'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { SheetModuleModel } from '@/types/Sheet';
+import { SheetModelDetails, SheetModuleModel } from '@/types/Sheet';
 import React, { useState } from 'react'
 import StatsModuleFieldsModel from './StatsModuleFieldsModel';
 import StringModuleFieldsModel from './StringModuleFieldsModel';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
 interface ModuleModelDetailProps {
     module: SheetModuleModel;
@@ -15,9 +16,10 @@ interface ModuleModelDetailProps {
 export default function DetailSheetModuleModel({ module, isUpdating, moduleIndex }: ModuleModelDetailProps) {
 
     const Module = () => {
-        if (module.type == "Stats") return <StatsModuleFieldsModel module={module} moduleIndex={moduleIndex} isUpdating={isUpdating}/>
-        if (module.type == "String") return <StringModuleFieldsModel module={module} moduleIndex={moduleIndex} isUpdating={isUpdating} />
+        if (module.type == "Stats") return <StatsModuleFieldsModel module={module} moduleIndex={moduleIndex} isUpdating={isUpdating} key={'module_' + moduleIndex}/>
+        if (module.type == "String") return <StringModuleFieldsModel module={module} moduleIndex={moduleIndex} isUpdating={isUpdating} key={'module_' + moduleIndex}/>
     }
+
     return (
         <Card>
             <CardHeader>
@@ -25,9 +27,6 @@ export default function DetailSheetModuleModel({ module, isUpdating, moduleIndex
                     <div className="text-xl">
                         {module.title}
                     </div>
-                    {isUpdating && 
-                        <Button variant={"outline"} size={'sm'} ><Plus /></Button>
-                    }
                 </div>
             </CardHeader>
             <CardContent>

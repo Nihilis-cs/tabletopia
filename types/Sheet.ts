@@ -27,7 +27,7 @@ export interface SheetModelDetails{
 export interface SheetModuleModel{
     id: string;
     title: string | null;
-    type: string;
+    type: EFieldType;
     fields?: FieldModel[] | null;
     order?: number;
 }

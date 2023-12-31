@@ -10,6 +10,11 @@ interface StringModelDetailProps {
 }
 
 export default function SringModuleFieldsModel({ module, moduleIndex, isUpdating }: StringModelDetailProps) {
+    const newStringField = {
+        name: 'new string'
+    }
+
+    
     return (
         <div className='grid grid-cols-2'>
         <Table>

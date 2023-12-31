@@ -1,11 +1,13 @@
 'use client'
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { FieldModel, SheetModelDetails, SheetModuleModel } from '@/types/Sheet';
 import { Separator } from '@radix-ui/react-separator';
-import React, { useState } from 'react'
-import { Controller, useFormContext } from 'react-hook-form';
+import { Plus } from 'lucide-react';
+import React, { MouseEvent, useState } from 'react'
+import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 
 interface StatsModelDetailProps {
     module: SheetModuleModel;
@@ -18,7 +20,21 @@ interface FieldModelProps {
 }
 
 export default function StatsModuleFieldsModel({ module, moduleIndex, isUpdating }: StatsModelDetailProps) {
-    const { control } = useFormContext<SheetModelDetails>();
+    const { control, register } = useFormContext<SheetModelDetails>();
+    const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+        control,
+        name: `modules.${moduleIndex}.fields`,
+        keyName: 'id'
+    });
+    const newStatField = {
+        name: 'new stat',
+    }
+    const addField = (e: MouseEvent) => {
+        append(newStatField);
+        console.log("new field");
+        e.preventDefault();
+    }
+
     const StatField = ({ field, index }: FieldModelProps) => {
         return (
             <Card className='hover:bg-primary-foreground'>
@@ -80,11 +96,14 @@ export default function StatsModuleFieldsModel({ module, moduleIndex, isUpdating
 
 
     return (
-        <div className='grid grid-cols-6 gap-2 '>
+        <div className='grid grid-cols-6 gap-2 items-center'>
             {module.fields?.map((field, index) => {
                 return (
-                    <StatField field={field} key={'field' + index} index={index} />);
+                    <StatField field={field} key={'field' + index} index={index} {...register} />);
             })}
+            {isUpdating &&
+                    <Button variant={"default"} size={'sm'} onClick={(e) => addField(e)} ><Plus /></Button>
+            }
 
         </div>
     )

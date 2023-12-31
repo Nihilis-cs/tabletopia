@@ -26,6 +26,7 @@ export default function StatsModuleFieldsModel({ module, moduleIndex, isUpdating
         name: `modules.${moduleIndex}.fields`,
         keyName: 'id'
     });
+    
     const newStatField = {
         name: 'new stat',
     }

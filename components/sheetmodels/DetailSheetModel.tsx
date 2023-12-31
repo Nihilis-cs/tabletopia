@@ -44,9 +44,11 @@ export default function DetailSheetModel({ id }: DetailSheetModelProps) {
                                 <div className='flex flex-row justify-between gap-2' >
                                     <div className='flex flex-row gap-4' >
                                         <div className="text-3xl text-primary align-bottom">{sheet?.name}</div>
-                                        <Button variant={"outline"} onClick={() => setUpdating(true)}>
-                                            <PenSquare />
-                                        </Button>
+                                        {!isUpdating &&
+                                            <Button variant={"outline"} onClick={() => setUpdating(true)}>
+                                                <PenSquare />
+                                            </Button>
+                                        }
                                     </div>
                                     <div>
                                         {isUpdating &&
@@ -70,7 +72,7 @@ export default function DetailSheetModel({ id }: DetailSheetModelProps) {
                         <CardFooter className='flex flex-row justify-end gap-4'>
                             {isUpdating &&
                                 <div className='flex flex-row justify-end gap-4'>
-                                    <Button variant={'default'} size={'sm'}>Save</Button>
+                                    <Button variant={'default'} size={'sm'} onClick={methods.handleSubmit(onSubmit)}>Save</Button>
                                     <Button variant={'outline'} onClick={() => setUpdating(false)}>Cancel</Button>
                                 </div>
                             }

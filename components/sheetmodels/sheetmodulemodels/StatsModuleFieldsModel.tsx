@@ -10,7 +10,6 @@ import React, { MouseEvent, useState } from 'react'
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 
 interface StatsModelDetailProps {
-    module: SheetModuleModel;
     isUpdating: boolean;
     moduleIndex: number;
 }
@@ -19,9 +18,9 @@ interface FieldModelProps {
     index: number;
 }
 
-export default function StatsModuleFieldsModel({ module, moduleIndex, isUpdating }: StatsModelDetailProps) {
+export default function StatsModuleFieldsModel({ moduleIndex, isUpdating }: StatsModelDetailProps) {
     const { control, register } = useFormContext<SheetModelDetails>();
-    const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+    const { fields, append, remove, swap, move } = useFieldArray({
         control,
         name: `modules.${moduleIndex}.fields`,
         keyName: 'id'
@@ -98,7 +97,7 @@ export default function StatsModuleFieldsModel({ module, moduleIndex, isUpdating
 
     return (
         <div className='grid grid-cols-6 gap-2 items-center'>
-            {module.fields?.map((field, index) => {
+            {fields?.map((field, index) => {
                 return (
                     <StatField field={field} key={'field' + index} index={index} {...register} />);
             })}

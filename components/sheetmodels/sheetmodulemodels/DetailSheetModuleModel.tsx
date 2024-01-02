@@ -16,7 +16,7 @@ interface ModuleModelDetailProps {
 export default function DetailSheetModuleModel({ module, isUpdating, moduleIndex }: ModuleModelDetailProps) {
 
     const Module = () => {
-        if (module.type == "Stats") return <StatsModuleFieldsModel module={module} moduleIndex={moduleIndex} isUpdating={isUpdating} key={'module_' + moduleIndex}/>
+        if (module.type == "Stats") return <StatsModuleFieldsModel moduleIndex={moduleIndex} isUpdating={isUpdating} key={'module_' + moduleIndex}/>
         if (module.type == "String") return <StringModuleFieldsModel module={module} moduleIndex={moduleIndex} isUpdating={isUpdating} key={'module_' + moduleIndex}/>
     }
 

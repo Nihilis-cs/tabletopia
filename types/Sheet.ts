@@ -60,3 +60,12 @@ export const FieldModelSchema = z.object({
 export type FieldModel = z.infer<typeof FieldModelSchema>;
 export const FieldsModelSchema = z.array(FieldModelSchema);
 export type FieldsModel = z.infer<typeof FieldsModelSchema>;
+
+export const StringFieldModelSchema = z.object({
+    name: z.string(),
+    value: z.string(),
+}).nullable();
+
+export type StringFieldModel = z.infer<typeof StringFieldModelSchema>;
+export const StringFieldsModelSchema = z.array(StringFieldModelSchema);
+export type StringFieldsModel = z.infer<typeof StringFieldsModelSchema>;

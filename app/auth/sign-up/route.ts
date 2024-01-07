@@ -12,13 +12,15 @@ export async function POST(request: Request) {
   const cookieStore = cookies()
   const supabase = createRouteHandlerClient<Database>({ cookies: () => cookieStore })
 
-  await supabase.auth.signUp({
+  var vRet = await supabase.auth.signUp({
     email,
     password,
     options: {
       emailRedirectTo: `${requestUrl.origin}/auth/callback`,
     },
   })
+
+  console.log(vRet);
 
   return NextResponse.redirect(requestUrl.origin, {
     status: 301,

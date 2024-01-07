@@ -25,7 +25,9 @@ export async function GET() {
         return Response.json(vRet);
     }
 
-    return Response.json('Error')
+    console.log("ben non")
+
+    return Response.json([])
 
 
 
